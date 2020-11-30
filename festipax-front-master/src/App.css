@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.App {
+  overflow-x: hidden;
+  background-color: cornsilk;
+}
+.title {
+  display: flex;
+}
+.list {
+  flex-direction: column;
+  margin: auto;
+  max-width: 40%;  
+}
+
+
+.y {
+  font-size: 40px;
+}
+
+.img {
+
+  max-width: 1000px;
+  max-height: 1000px;
+  margin-left: auto;
+  margin-right: auto
+}

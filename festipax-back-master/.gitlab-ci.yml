@@ -1,0 +1,25 @@
+stages:
+  - install
+  - build
+
+install:
+  image: node:12-alpine
+  stage: install
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug-v0.16.0
+    entrypoint: [""]
+  variables:
+    IMAGE: registry.gitlab.com/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+  script:
+    - 'echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json'
+    - 'echo "Building image: $IMAGE"'
+    - '/kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $IMAGE'
+    - 'echo "Image built: $IMAGE"'
